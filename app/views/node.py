@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request
 
-from .extensions.main_ext import AdvEfficiency
+from .extensions.main_ext import MVP
 
 
 node = Blueprint('node', __name__)
+obj = MVP()
 
 
 @node.route('/', methods=['GET'])
@@ -13,7 +14,6 @@ def route_home():
 
 @node.route('/adv_efficiency', methods=['GET', 'POST'])
 def route_adv_efficiency():
-    obj = AdvEfficiency()
     if request.method == 'GET':
         return render_template('adv_efficiency.html', title='Рассчет эффективности рекламной компании',
                                theater_lovers=obj.get_theater_lovers(),
@@ -45,3 +45,21 @@ def route_adv_efficiency():
                                result_math_income=result_math_income,
                                result_math_growth=result_math_growth,
                                result_math_conversion=result_math_conversion)
+
+
+@node.route('/sales_efficiency', methods=['GET'])
+def route_sales_efficiency():
+    conv_branch_all, conv_branch_nov = obj.get_conv_branch_all(), obj.get_conv_branch_nov()
+    conv_professionals_all, conv_professionals_nov = obj.get_conv_professionals_all(), obj.get_conv_professionals_nov()
+    return render_template('sales_efficiency.html', title='Анализ эффеективности продаж',
+                           conv_branch_all=conv_branch_all,
+                           conv_branch_nov=conv_branch_nov,
+                           color1='#28a745' * (conv_branch_all < conv_branch_nov) + '#dc3545' * (
+                                   conv_branch_all > conv_branch_nov),
+                           fig1_type=int(conv_branch_all < conv_branch_nov),
+                           conv_professionals_all=conv_professionals_all,
+                           conv_professionals_nov=conv_professionals_nov,
+                           color2='#28a745' * (conv_professionals_all < conv_professionals_nov) + '#dc3545' * (
+                                       conv_professionals_all > conv_professionals_nov),
+                           fig2_type=int(conv_professionals_all < conv_professionals_nov)
+                           )

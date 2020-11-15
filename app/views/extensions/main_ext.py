@@ -3,7 +3,7 @@ from os import path, getcwd
 import pandas as pd
 
 
-class AdvEfficiency:
+class MVP:
     def __init__(self):
         self.datasets_path = path.join(getcwd(), 'datasets')
         self.clients_last_2_fixed = pd.read_csv(path.join(self.datasets_path,
@@ -55,8 +55,6 @@ class AdvEfficiency:
         return result_avid_theatergoers['cnum'].count()
 
     def get_theater_lovers(self):
-
-
         grand_theatre_visitors = self.theater_visitors[
             self.theater_visitors['mrchname'].isin(self.theater_list)
         ]
@@ -105,7 +103,7 @@ class AdvEfficiency:
         result_math_growth = grand_theatre_result_2 / grand_theatre_result_1 * warm_clients_counts
         result_math_growth = int(result_math_growth)
 
-        result_math_conversion = int(round(grand_theatre_result_2 / grand_theatre_result_1, 2) * 100)
+        result_math_conversion = round(grand_theatre_result_2 / grand_theatre_result_1, 4) * 100
 
         result_math_income = round((grand_theatre_visitors['amount'].mean() * 0.8) * result_math_growth, 2)
 
@@ -131,7 +129,7 @@ class AdvEfficiency:
         result_math_growth = grand_theatre_result_2 / theater_visitors_result * avid_theatergoers_counts
         result_math_growth = int(result_math_growth)
 
-        result_math_conversion = int(round(grand_theatre_result_2 / theater_visitors_result, 2) * 100)
+        result_math_conversion = round(grand_theatre_result_2 / theater_visitors_result, 4) * 100
 
         result_math_income = round((grand_theatre_visitors['amount'].mean() * 0.8) * result_math_growth, 2)
 
@@ -157,7 +155,7 @@ class AdvEfficiency:
         result_math_growth = grand_theatre_result_2 / theater_visitors_result * theater_lovers_counts
         result_math_growth = int(result_math_growth)
 
-        result_math_conversion = int(round(grand_theatre_result_2 / theater_visitors_result, 2) * 100)
+        result_math_conversion = round(grand_theatre_result_2 / theater_visitors_result, 4) * 100
 
         result_math_income = round((grand_theatre_visitors['amount'].mean() * 0.8) * result_math_growth, 2)
 
@@ -184,9 +182,108 @@ class AdvEfficiency:
         result_math_growth = grand_theatre_result_2 / theater_visitors_result * someone_who_might_love_theater_counts
         result_math_growth = int(result_math_growth)
 
-        result_math_conversion = int(round(grand_theatre_result_2 / theater_visitors_result, 3) * 100)
+        result_math_conversion = round(grand_theatre_result_2 / theater_visitors_result, 4) * 100
 
         result_math_income = round((grand_theatre_visitors['amount'].mean() * 0.8) * result_math_growth, 2)
 
         return result_math_growth, result_math_conversion, result_math_income
 
+    def get_conv_branch_all(self):
+        theater_visitors_grouped = self.theater_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        grand_theatre_visitors = self.theater_visitors[
+            self.theater_visitors['mrchname'].isin(self.theater_list)
+        ]
+
+        grand_theatre_grouped = grand_theatre_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        conv_branch_all = grand_theatre_grouped['cnum'].count() / theater_visitors_grouped['cnum'].count()
+        conv_branch_all = round(round(conv_branch_all, 3) * 100, 1)
+
+        return conv_branch_all
+
+    def get_conv_branch_nov(self):
+        self.theater_visitors['purchdate'] = pd.to_datetime(self.theater_visitors['purchdate'], format='%Y-%m-%d %H:%M:%S')
+
+        date_start = pd.to_datetime('2019-11-01 00:00:00', format='%Y-%m-%d %H:%M:%S')
+        date_end = pd.to_datetime('2019-11-30 00:00:00', format='%Y-%m-%d %H:%M:%S')
+
+        theater_visitors = self.theater_visitors[
+            (self.theater_visitors['purchdate'] >= date_start) &
+            (self.theater_visitors['purchdate'] <= date_end)
+            ]
+
+        theater_visitors_grouped = theater_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        grand_theatre_visitors = theater_visitors[
+            theater_visitors['mrchname'].isin(self.theater_list)
+        ]
+
+        grand_theatre_grouped = grand_theatre_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        conv_branch_all = grand_theatre_grouped['cnum'].count() / theater_visitors_grouped['cnum'].count()
+        conv_branch_all = round(round(conv_branch_all, 3) * 100, 1)
+
+        return conv_branch_all
+
+    def get_conv_professionals_all(self):
+        theater_visitors_grouped = self.theater_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        theater_visitors_grouped = theater_visitors_grouped[
+            theater_visitors_grouped['count'] > 2
+            ]
+
+        grand_theatre_visitors = self.theater_visitors[
+            self.theater_visitors['mrchname'].isin(self.theater_list)
+        ]
+
+        grand_theatre_grouped = grand_theatre_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        grand_theatre_grouped = grand_theatre_grouped[
+            grand_theatre_grouped['count'] > 2
+            ]
+
+        conv_branch_all = grand_theatre_grouped['cnum'].count() / theater_visitors_grouped['cnum'].count()
+        conv_branch_all = round(round(conv_branch_all, 3) * 100, 1)
+
+        return conv_branch_all
+
+    def get_conv_professionals_nov(self):
+        self.theater_visitors['purchdate'] = pd.to_datetime(self.theater_visitors['purchdate'], format='%Y-%m-%d %H:%M:%S')
+
+        date_start = pd.to_datetime('2019-11-01 00:00:00', format='%Y-%m-%d %H:%M:%S')
+        date_end = pd.to_datetime('2019-11-30 00:00:00', format='%Y-%m-%d %H:%M:%S')
+
+        theater_visitors = self.theater_visitors[
+            (self.theater_visitors['purchdate'] >= date_start) &
+            (self.theater_visitors['purchdate'] <= date_end)
+            ]
+
+        theater_visitors_grouped = theater_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        theater_visitors_grouped = theater_visitors_grouped[
+            theater_visitors_grouped['count'] > 2
+            ]
+
+        grand_theatre_visitors = theater_visitors[
+            theater_visitors['mrchname'].isin(self.theater_list)
+        ]
+
+        grand_theatre_grouped = grand_theatre_visitors.groupby('cnum')['purchdate'] \
+            .count().to_frame('count').reset_index()
+
+        grand_theatre_grouped = grand_theatre_grouped[
+            grand_theatre_grouped['count'] > 2
+            ]
+
+        conv_branch_all = grand_theatre_grouped['cnum'].count() / theater_visitors_grouped['cnum'].count()
+        conv_branch_all = round(round(conv_branch_all, 3) * 100, 1)
+
+        return conv_branch_all
