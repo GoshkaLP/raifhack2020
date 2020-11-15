@@ -3,6 +3,10 @@ from os import path, getcwd
 import pandas as pd
 
 
+def format_n(n):
+    return '{0:,}'.format(n).replace(',', ' ')
+
+
 class MVP:
     def __init__(self):
         self.datasets_path = path.join(getcwd(), 'datasets')

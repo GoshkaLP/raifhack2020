@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <h1>Анализ эффективности продаж</h1>
+    <div class="d-flex justify-content-center pt-2">
+        <h1>Отраслевая аналитика</h1>
     </div>
     <div class="d-flex justify-content-center pt-xl-5">
         <table class="table table-bordered">
@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Доля рынка по сегменту</th>
+      <th scope="row">Доля рынка театров и продюссерских агенств Москвы</th>
       <td>{{ conv_branch_all }} %</td>
       <td>
 
@@ -40,7 +40,7 @@
       </td>
     </tr>
     <tr>
-      <th scope="row">Доля рынка по проффесионалам</th>
+      <th scope="row">Доля рынка по сегменту "Постоянные посетители театров"</th>
       <td>{{ conv_professionals_all }} %</td>
       <td>
 
@@ -66,6 +66,10 @@
   </tbody>
 </table>
 
+    </div>
+        <div class="flex-column d-flex justify-content-center p-xl-5">
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <script src="{{ url_for('static', filename='js/js.js') }}"></script>
     </div>
 </div>
 {% endblock %}

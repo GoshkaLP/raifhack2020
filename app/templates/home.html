@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex-column d-flex justify-content-center">
+<div class="flex-column d-flex justify-content-center pt-2">
     <div class="d-flex justify-content-center">
         <h1>Большой театр</h1>
     </div>
+    <div class="d-flex justify-content-center pt-xl-2">
+        <img src="{{ url_for('static', filename='img/2.jpg') }}" class="img-fluid" alt="Responsive image">
+    </div>
     <div class="d-flex justify-content-center pt-xl-5">
         <div class="btn-group-vertical btn-group-lg">
-            <a href="/sales_efficiency" role="button" class="btn btn-warning">Анализ эффективности продаж</a>
-            <a href="/adv_efficiency" role="button" class="btn btn-warning">Расчет эффективности рекламной компании</a>
-            <a href="/industry_analytics" role="button" class="btn btn-warning">Отраслевая аналитика</a>
+            <a href="/adv_efficiency" role="button" class="btn btn-warning">Расчет эффективности маркетинговой акции</a>
+            <a href="/sales_efficiency" role="button" class="btn btn-warning">Отраслевая аналитика</a>
         </div>
     </div>
 </div>

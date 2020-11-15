@@ -2,11 +2,17 @@
 
 {% block content %}
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <h1>Расчет эффективности рекламной компании</h1>
+    <div class="d-flex justify-content-center pt-2">
+        <h1>Расчет эффективности маркетинговой акции</h1>
+    </div>
+    <div class="d-flex justify-content-center pt-xl-5">
+        <h5>«Театр начинается не с вешалки, а с приглашения в него – пригласите дорогих гостей к себе, предложив в качестве подарка <b>скидку 20%</b> на приобретение билета»</h5>
     </div>
     <form action="/adv_efficiency" method="post">
     <div class="flex-column d-flex justify-content-center p-xl-5">
+        <div class="container">
+
+        <div class="row">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -14,20 +20,20 @@
                 </div>
             </div>
             <div class="input-group-append">
-                <span class="input-group-text">"Теплые" клиенты</span>
+                <span class="input-group-text span_dop">Однажды посетившие Большой театр</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- counter-count pr-1">{{ warm_clients }}</div>
-                            <div class="col- pl-1">клиентов</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ warm_clients }} клиентов
                     </span>
                 </div>
             </div>
         </div>
+            </div>
+            <div class="row">
+                <p>Клиенты, которые однажды посетили большой театр, но не совершили повторный визит.</p>
+            </div>
 
+            <div class="row">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -35,20 +41,20 @@
                 </div>
             </div>
             <div class="input-group-append">
-                <span class="input-group-text">"Заядлые театралы"</span>
+                <span class="input-group-text span_dop">Постоянные посетители театра</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- counter-count pr-1">{{ avid_theatergoers }}</div>
-                            <div class="col- pl-1">клиентов</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ avid_theatergoers }} клиентов
                     </span>
                 </div>
             </div>
         </div>
+            </div>
+            <div class="row">
+                <p>Клиенты, посещавшие театр три и более раза за последние три месяца, но не посещавшие Большой театр.</p>
+            </div>
 
+        <div class="row">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -56,20 +62,21 @@
                 </div>
             </div>
             <div class="input-group-append">
-                <span class="input-group-text">Любители театра</span>
+                <span class="input-group-text span_dop">Любители театра</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- counter-count pr-1">{{ theater_lovers }}</div>
-                            <div class="col- pl-1">клиентов</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ theater_lovers }} клиентов
                     </span>
                 </div>
             </div>
         </div>
+        </div>
+            <div class="row">
+                <p>Клиенты, посетившие театр один раз, но не посетившие Большой театр.</p>
+            </div>
 
+
+        <div class="row">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -77,82 +84,86 @@
                 </div>
             </div>
             <div class="input-group-append">
-                <span class="input-group-text">Те, кто могли бы полюбить театр</span>
+                <span class="input-group-text span_dop">Те, кто могли бы полюбить театр</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- counter-count pr-1">{{ someone_who_might_love_theater }}</div>
-                            <div class="col- pl-1">клиентов</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ someone_who_might_love_theater }} клиентов
                     </span>
                 </div>
             </div>
         </div>
+        </div>
+            <div class="row">
+                <p>Клиенты, профиль трат которых по mcc кодам схож с профилем трат тех людей, которые посещали театр.</p>
+            </div>
+
+            </div>
 
     </div>
     <div class="d-flex justify-content-center pt-xl-5">
         <div class="btn-group-vertical btn-group-lg">
-            <button type="submit" class="btn btn-warning">Вычислить</button>
+            <button type="submit" class="btn btn-warning">Рассчитать</button>
         </div>
     </div>
     </form>
     {% if result_name %}
     <div class="d-flex justify-content-center pt-xl-5">
-        <h1>Показатели прироста {{ result_name }}</h1>
+        <h3>Показатели прироста по сегменту {{ result_name }}</h3>
     </div>
     <div class="flex-column d-flex justify-content-center p-xl-5">
+        <div class="container">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-append">
-                <span class="input-group-text">Прирост покупателей</span>
+                <span class="input-group-text span_dop">Прирост покупателей</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- counter-count pr-1">{{ result_math_growth }}</div>
-                            <div class="col- pl-1">клиентов</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ result_math_growth }} клиентов
                     </span>
                 </div>
             </div>
         </div>
+        </div>
 
+        <div class="row">
+                <p>Количество клиентов, которые пришли к нам в следствии получения рекламного push уведомления.</p>
+            </div>
+
+        <div class="container">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-append">
-                <span class="input-group-text">Конверсия</span>
+                <span class="input-group-text span_dop">Конверсия</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- pr-1">{{ result_math_conversion }}</div>
-                            <div class="col- pl-1">%</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ result_math_conversion }} %
                     </span>
                 </div>
             </div>
         </div>
+        </div>
 
+        <div class="row">
+                <p>Процент клиентов, которые пришли к нам в следствии получения рекламного push уведомления.</p>
+            </div>
+
+        <div class="container">
         <div class="input-group p-2 input-group-lg">
             <div class="input-group-append">
-                <span class="input-group-text">Доход с акции</span>
+                <span class="input-group-text span_dop">Доход с акции</span>
                 <div class="input-group-text">
-                    <span class="badge badge-warning badge-pill">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col- counter-count pr-1">{{ result_math_income }}</div>
-                            <div class="col- pl-1">рублей</div>
-                          </div>
-                        </div>
+                    <span class="badge badge-warning badge-pill span_num">
+                        {{ result_math_income }} рублей
                     </span>
                 </div>
             </div>
         </div>
+        </div>
 
+        <div class="row">
+                <p>Произведение количества пришедших покупателей на медианное значения суммы чека.</p>
+            </div>
 
     </div>
+
     {% endif %}
 </div>
 {% endblock %}
