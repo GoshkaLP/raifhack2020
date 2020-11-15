@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h1>Рассчет эффективности рекламной компании</h1>
+    </div>
+    <form action="/adv_efficiency" method="post">
+    <div class="flex-column d-flex justify-content-center p-xl-5">
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" value="warm_clients" name="radio_b">
+                </div>
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">"Теплые" клиенты</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ warm_clients }}</div>
+                            <div class="col- pl-1">клиентов</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" value="avid_theatergoers" name="radio_b">
+                </div>
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">"Заядлые театралы"</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ avid_theatergoers }}</div>
+                            <div class="col- pl-1">клиентов</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" value="theater_lovers" name="radio_b">
+                </div>
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">Любители театра</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ theater_lovers }}</div>
+                            <div class="col- pl-1">клиентов</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" value="someone_who_might_love_theater" name="radio_b">
+                </div>
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">Те, кто могли бы полюбить театр</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ someone_who_might_love_theater }}</div>
+                            <div class="col- pl-1">клиентов</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="d-flex justify-content-center pt-xl-5">
+        <div class="btn-group-vertical btn-group-lg">
+            <button type="submit" class="btn btn-warning">Вычислить</button>
+        </div>
+    </div>
+    </form>
+    {% if result_name %}
+    <div class="d-flex justify-content-center pt-xl-5">
+        <h1>Показатели прироста {{ result_name }}</h1>
+    </div>
+    <div class="flex-column d-flex justify-content-center p-xl-5">
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-append">
+                <span class="input-group-text">Прирост покупателей</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ result_math_growth }}</div>
+                            <div class="col- pl-1">клиентов</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-append">
+                <span class="input-group-text">Конверсия</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ result_math_conversion }}</div>
+                            <div class="col- pl-1">%</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group p-2 input-group-lg">
+            <div class="input-group-append">
+                <span class="input-group-text">Доход с акции</span>
+                <div class="input-group-text">
+                    <span class="badge badge-warning badge-pill">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col- counter-count pr-1">{{ result_math_income }}</div>
+                            <div class="col- pl-1">рублей</div>
+                          </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
